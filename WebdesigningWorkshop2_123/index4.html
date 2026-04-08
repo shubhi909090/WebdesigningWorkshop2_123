@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Student Result Calculator</title>
+
+<style>
+    body {
+        font-family: Arial;
+        background: #f4f4f4;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .container {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        margin: auto;
+        box-shadow: 0 0 10px gray;
+    }
+
+    input, button {
+        margin: 10px;
+        padding: 10px;
+        width: 80%;
+    }
+
+    #result {
+        margin-top: 20px;
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Result Calculator</h2>
+
+    <input type="number" id="subjects" placeholder="Enter number of subjects">
+    <button onclick="calculateResult()">Enter Marks</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function calculateResult() {
+
+    let n = document.getElementById("subjects").value;
+
+    if (n <= 0) {
+        alert("Enter valid number of subjects");
+        return;
+    }
+
+    let total = 0;
+
+    // 🔁 Loop to take marks
+    for (let i = 1; i <= n; i++) {
+        let marks = prompt("Enter marks for subject " + i);
+        marks = Number(marks);
+
+        if (marks < 0 || marks > 100) {
+            alert("Invalid marks! Enter between 0-100");
+            return;
+        }
+
+        total += marks;
+    }
+
+    let average = total / n;
+
+    // 🔀 Conditions for Grade
+    let grade;
+
+    if (average >= 90) {
+        grade = "A+";
+    } else if (average >= 75) {
+        grade = "A";
+    } else if (average >= 60) {
+        grade = "B";
+    } else if (average >= 50) {
+        grade = "C";
+    } else {
+        grade = "F";
+    }
+
+    // Pass/Fail
+    let resultStatus = (average >= 40) ? "Pass" : "Fail";
+
+    // 🖥 Display Result
+    document.getElementById("result").innerHTML = `
+        Total Marks: ${total} <br>
+        Average: ${average.toFixed(2)} <br>
+        Grade: ${grade} <br>
+        Result: ${resultStatus}
+    `;
+}
+</script>
+
+</body>
+</html>
